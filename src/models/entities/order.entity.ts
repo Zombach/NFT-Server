@@ -3,10 +3,12 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { Product } from './product.entity';
+import { ExtraInformationCustomer } from './extraInformationCustomer.entity';
 
 @Entity('orders')
 export class Order {
@@ -22,23 +24,14 @@ export class Order {
   @Column()
   lastName: string;
 
-  @Column({ nullable: true })
-  company?: string;
-
-  @Column({ nullable: true })
-  city?: string;
-
-  @Column({ nullable: true })
-  street?: string;
-
-  @Column({ nullable: true })
-  country?: string;
-
   @Column()
   email: string;
 
   @Column()
   phone: string;
+
+  @OneToOne(() => ExtraInformationCustomer, (customer) => customer.order)
+  customerInformation?: ExtraInformationCustomer;
 
   @ManyToOne(() => User, (user) => user.collections)
   user: User;
