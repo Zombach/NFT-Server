@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  Unique,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { Collection } from './collection.entity';
 import { Product } from './product.entity';
 import { Order } from './order.entity';

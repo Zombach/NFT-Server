@@ -13,10 +13,7 @@ export class AuthService {
   ) {}
 
   async signIn(email: string, pass: string): Promise<JwtResponse> {
-    const user = await this.usersRepository
-      .createQueryBuilder('users')
-      .where('users.email = :email', { email: email })
-      .getOne();
+    const user = await this.usersRepository.createQueryBuilder('users').where('users.email = :email', { email: email }).getOne();
 
     if (!user || !(await bcrypt.compare(pass, user.password))) {
       throw new UnauthorizedException();

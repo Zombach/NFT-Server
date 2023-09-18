@@ -15,18 +15,11 @@ export class CollectionsService {
   ) {}
 
   async add(request: AddCollectionRequest, userId: number): Promise<number> {
-    const user = await this.usersRepository
-      .createQueryBuilder('users')
-      .where('users.id = :id', { id: userId })
-      .getOne();
+    const user = await this.usersRepository.createQueryBuilder('users').where('users.id = :id', { id: userId }).getOne();
 
     const entity = AddCollectionRequest.mapToEntity(request, user);
 
-    const result = await this.collectionsRepository
-      .createQueryBuilder('collections')
-      .insert()
-      .values([entity])
-      .execute();
+    const result = await this.collectionsRepository.createQueryBuilder('collections').insert().values([entity]).execute();
 
     return result.raw;
   }

@@ -16,11 +16,7 @@ export class AddProductRequest {
   @ApiProperty()
   collectionId: number;
 
-  static mapToEntity(
-    request: AddProductRequest,
-    user: User,
-    collection: Collection,
-  ): Product {
+  static mapToEntity(request: AddProductRequest, user: User, collection: Collection): Product {
     return {
       name: request.name,
       price: request.price,

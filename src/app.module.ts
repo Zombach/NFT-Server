@@ -27,20 +27,7 @@ import { ConfigModule } from '@nestjs/config';
       signOptions: { expiresIn: '50000s' },
     }),
   ],
-  controllers: [
-    UsersController,
-    AuthController,
-    CollectionsController,
-    ProductsController,
-  ],
-  providers: [
-    ...usersProviders,
-    ...collectionsProviders,
-    ...productsProviders,
-    UsersService,
-    AuthService,
-    CollectionsService,
-    ProductsService,
-  ],
+  controllers: [UsersController, AuthController, CollectionsController, ProductsController],
+  providers: [...usersProviders, ...collectionsProviders, ...productsProviders, UsersService, AuthService, CollectionsService, ProductsService],
 })
 export class AppModule {}

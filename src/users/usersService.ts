@@ -7,9 +7,7 @@ import { AuthService } from 'src/auth/authService';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @Inject('USERS_REPOSITORY') private usersRepository: Repository<User>,
-  ) {}
+  constructor(@Inject('USERS_REPOSITORY') private usersRepository: Repository<User>) {}
 
   async register(request: RegisterUserRequest): Promise<number> {
     const user: User = {
@@ -28,20 +26,13 @@ export class UsersService {
   }
 
   async add(user: User): Promise<number> {
-    const result = await this.usersRepository
-      .createQueryBuilder('users')
-      .insert()
-      .values([user])
-      .execute();
+    const result = await this.usersRepository.createQueryBuilder('users').insert().values([user]).execute();
 
     return result.raw;
   }
 
   async getUserById(id: number): Promise<UserResponse> {
-    const user = await this.usersRepository
-      .createQueryBuilder('users')
-      .where('users.id = :id', { id: id })
-      .getOne();
+    const user = await this.usersRepository.createQueryBuilder('users').where('users.id = :id', { id: id }).getOne();
 
     return UserResponse.mapFromEntity(user);
   }

@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Param,
-  UseGuards,
-  ParseIntPipe,
-  Request,
-  HttpStatus,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, UseGuards, ParseIntPipe, Request, HttpStatus, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/authGuard';
 import { ProductsService } from './productsService';
@@ -25,15 +14,9 @@ export class ProductsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  async add(
-    @Body() request: AddProductRequest,
-    @Request() req,
-    @Res() res: Response,
-  ) {
+  async add(@Body() request: AddProductRequest, @Request() req, @Res() res: Response) {
     try {
-      res
-        .status(HttpStatus.CREATED)
-        .send(await this.productsService.add(request, req.user.sub));
+      res.status(HttpStatus.CREATED).send(await this.productsService.add(request, req.user.sub));
     } catch (ex) {
       res.status(HttpStatus.CONFLICT).send();
     }
@@ -41,10 +24,7 @@ export class ProductsController {
 
   @ApiParam({ name: 'id', required: true })
   @Get('/:id')
-  async getById(
-    @Param('id', ParseIntPipe) id: number,
-    @Res() res: Response<ProductResponse>,
-  ) {
+  async getById(@Param('id', ParseIntPipe) id: number, @Res() res: Response<ProductResponse>) {
     const result = await this.productsService.getById(id);
 
     if (result) {
@@ -56,12 +36,7 @@ export class ProductsController {
 
   @ApiParam({ name: 'userId', required: true })
   @Get('created/:userId')
-  async getOwnedProducts(
-    @Param('userId', ParseIntPipe) userId: number,
-    @Res() res: Response<ProductResponse[]>,
-  ) {
-    res
-      .status(HttpStatus.OK)
-      .json(await this.productsService.getByUserId(userId));
+  async getOwnedProducts(@Param('userId', ParseIntPipe) userId: number, @Res() res: Response<ProductResponse[]>) {
+    res.status(HttpStatus.OK).json(await this.productsService.getByUserId(userId));
   }
 }

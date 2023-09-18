@@ -18,10 +18,7 @@ export class ProductsService {
   ) {}
 
   async add(request: AddProductRequest, userId: number): Promise<number> {
-    const user = await this.usersRepository
-      .createQueryBuilder('users')
-      .where('users.id = :id', { id: userId })
-      .getOne();
+    const user = await this.usersRepository.createQueryBuilder('users').where('users.id = :id', { id: userId }).getOne();
 
     const collection = await this.collectionsRepository
       .createQueryBuilder('collections')
@@ -34,11 +31,7 @@ export class ProductsService {
 
     const entity = AddProductRequest.mapToEntity(request, user, collection);
 
-    const result = await this.productsRepository
-      .createQueryBuilder('products')
-      .insert()
-      .values([entity])
-      .execute();
+    const result = await this.productsRepository.createQueryBuilder('products').insert().values([entity]).execute();
 
     return result.raw;
   }
