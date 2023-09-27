@@ -68,8 +68,7 @@ export class ProductsService {
       .createQueryBuilder('products')
       .leftJoinAndSelect('products.user', 'user')
       .getMany();
-    debugger;
-    console.log(collections);
+
     return collections.map((c) => ProductResponse.mapFromEntity(c));
   }
 }
