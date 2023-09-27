@@ -62,4 +62,14 @@ export class ProductsService {
 
     return collections.map((c) => ProductResponse.mapFromEntity(c));
   }
+
+  async getProducts(): Promise<ProductResponse[]> {
+    const collections = await this.productsRepository
+      .createQueryBuilder('products')
+      .leftJoinAndSelect('products.user', 'user')
+      .getMany();
+    debugger;
+    console.log(collections);
+    return collections.map((c) => ProductResponse.mapFromEntity(c));
+  }
 }

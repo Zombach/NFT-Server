@@ -54,6 +54,11 @@ export class ProductsController {
     }
   }
 
+  @Get()
+  async getProducts(@Res() res: Response<ProductResponse[]>) {
+    res.status(HttpStatus.OK).json(await this.productsService.getProducts());
+  }
+
   @ApiParam({ name: 'userId', required: true })
   @Get('created/:userId')
   async getOwnedProducts(
