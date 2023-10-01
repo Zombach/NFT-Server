@@ -7,8 +7,10 @@ import {
   Request,
   Res,
   HttpStatus,
+  Param,
+  ParseIntPipe,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { RegisterUserRequest } from 'src/models/requests/registerUserRequest';
 import { UsersService } from './usersService';
 import { AuthGuard } from 'src/auth/authGuard';
@@ -37,5 +39,25 @@ export class UsersController {
     res
       .status(HttpStatus.OK)
       .json(await this.usersService.getUserById(req.user.sub));
+  }
+
+  @Get()
+  async getAll(@Res() res: Response<UserResponse[]>) {
+    res.status(HttpStatus.OK).json(await this.usersService.getAll());
+  }
+
+  @ApiParam({ name: 'id', required: true })
+  @Get('/:id')
+  async getById(
+    @Param('id', ParseIntPipe) id: number,
+    @Res() res: Response<UserResponse>,
+  ) {
+    const result = await this.usersService.getUserById(id);
+
+    if (result) {
+      res.status(HttpStatus.OK).json(result);
+    } else {
+      res.status(HttpStatus.NOT_FOUND).json();
+    }
   }
 }

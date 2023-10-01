@@ -6,6 +6,7 @@ export class UserResponse {
   email: string;
   description?: string;
   avatar?: string;
+  address?: string;
 
   static mapFromEntity(entity: User): UserResponse {
     if (!entity) {
@@ -18,6 +19,7 @@ export class UserResponse {
       email: entity.email,
       description: entity.description,
       avatar: entity.avatar,
+      address: '0xa6794dec66df7d8b69752956df1b28ca93f77cd7',
     };
   }
 }
