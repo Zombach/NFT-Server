@@ -14,7 +14,7 @@ export class AddProductRequest {
   img: string;
 
   @ApiProperty()
-  collectionId: number;
+  collectionId?: number;
 
   static mapToEntity(
     request: AddProductRequest,

@@ -16,6 +16,7 @@ import { ProductsService } from './productsService';
 import { Response } from 'express';
 import { ProductResponse } from 'src/models/responses/productResponse';
 import { AddProductRequest } from 'src/models/requests/addProductRequest';
+import { CreateItemResponse } from 'src/models/responses/createItemResponse';
 
 @ApiTags('products')
 @ApiBearerAuth('JWT-auth')
@@ -28,7 +29,7 @@ export class ProductsController {
   async add(
     @Body() request: AddProductRequest,
     @Request() req,
-    @Res() res: Response,
+    @Res() res: Response<CreateItemResponse>,
   ) {
     try {
       res
