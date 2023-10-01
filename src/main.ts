@@ -5,20 +5,16 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const express = require('express');
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const cors = require('cors');
-  app.use(express.json());
-  app.use(cors());
- 
- //const corsOptions = {
-   //origin: 'http://localhost:3000',
- //};
 
- 
- //app.use(cors(corsOptions));
+  const corsOptions = {
+    origin: true,
+    credentials: true,
+  };
 
-  
+  app.use(cors(corsOptions));
+
   const config = new DocumentBuilder()
     .setTitle('NFT Server')
     .setVersion('1.0')
